@@ -1,8 +1,18 @@
-import React from 'react'
+import type { ReactNode, HTMLAttributes } from 'react'
+import './index.css'
+type TypeButton = {
+  children?: ReactNode
+  variant?: 'primary' | 'secondary' | 'danger'
+} & HTMLAttributes<HTMLButtonElement>
 
-const Button = () => {
+const Button = (props: TypeButton) => {
   return (
-    <div>Button</div>
+    <button
+      {...props}
+      className={`note-button ${props.className} ${props.variant}`}
+    >
+      {props.children}
+    </button>
   )
 }
 
