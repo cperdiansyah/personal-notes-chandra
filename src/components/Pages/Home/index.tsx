@@ -13,9 +13,13 @@ const Home = () => {
   return (
     <>
       <AppBar />
-      {notes.map((note) => (
-        <NotesItem key={note.id} {...note} />
-      ))}
+      <div className="notes-app__body container  py-5">
+        <div className="notes-list grid grid-cols-3 gap-4">
+          {notes.map((note) => (
+            <NotesItem key={note.id} {...note} />
+          ))}
+        </div>
+      </div>
     </>
   )
 }

@@ -1,0 +1,7 @@
+.note-item {
+  &__wrapper {
+    padding: 16px;
+    border: 1px solid #000;
+    @apply rounded-md border-gray-300 flex flex-col justify-between;
+  }
+}
