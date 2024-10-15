@@ -13,4 +13,14 @@ const showFormattedDate = (date: string | Date): string => { // Added type annot
   return new Date(date).toLocaleDateString("id-ID", options)
 }
 
-export { getInitialData, showFormattedDate };
+const setItem = <T>(key: string, value: T): void => {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+const getItem = <T>(key: string): T | null => {
+  const item = localStorage.getItem(key);
+  return item ? JSON.parse(item) as T : null;
+}
+
+
+export { getInitialData, showFormattedDate ,  setItem, getItem};

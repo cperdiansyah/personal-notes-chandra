@@ -1,9 +1,8 @@
+import type { TypeNoteItem } from '@/types'
 import React from 'react'
 
-const NotesItem = () => {
-  return (
-    <div>NotesItem</div>
-  )
+const NotesItem = (props: TypeNoteItem) => {
+  return <div>NotesItem</div>
 }
 
 export default NotesItem
