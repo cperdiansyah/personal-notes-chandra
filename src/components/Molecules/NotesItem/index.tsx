@@ -3,7 +3,7 @@ import { showFormattedDate } from '@/utils'
 
 import './index.scss'
 import Button from '@/components/Atoms/Button'
-type TypeNotesItem = {
+export type TypeNotesItem = {
   onDelete: (id: string | number) => void
   onArchive: (id: string | number) => void
 } & TypeNoteItem
@@ -24,7 +24,7 @@ const NotesItem = (props: TypeNotesItem) => {
           Delete
         </Button>
         <Button variant="secondary" onClick={() => props.onArchive(props.id)}>
-          Archieve
+          {props.archived ? 'Unarchive' : 'Archive'}
         </Button>
       </div>
     </div>
