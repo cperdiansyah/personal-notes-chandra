@@ -1,12 +1,24 @@
-import type { TypeNoteItem } from '@/types'
-import { getInitialData } from '@/utils'
-import React, { useState } from 'react'
+import type { TypeNoteItem, TypeNotes } from '@/types'
+import { getInitialData, getItem, setItem } from '@/utils'
+import React, { useEffect, useState } from 'react'
 
 const useNotes = () => {
-  const [notes, setNotes] = useState(getInitialData())
+  const [notes, setNotes] = useState<TypeNotes>([])
+
+  useEffect(() => {
+    const notesLocalStorage = getItem('notes')
+
+    if (notesLocalStorage !== null) {
+      setNotes(notesLocalStorage as TypeNotes)
+    } else {
+      setItem('notes', getInitialData())
+      setNotes(getInitialData())
+    }
+  }, [])
 
   const searchNotes = (keyword: string) => {
-    let filteredNotes = getInitialData()
+    let filteredNotes = getItem('notes') as TypeNotes
+
     if (keyword !== '') {
       filteredNotes = filteredNotes.filter((note) =>
         note.title.toLowerCase().includes(keyword.toLowerCase()),
@@ -17,12 +29,15 @@ const useNotes = () => {
   }
 
   const addNote = (note: TypeNoteItem) => {
-    setNotes([...notes, note])
+    const updatedNotes = [...notes, note]
+    setNotes(updatedNotes)
+    setItem('notes', updatedNotes)
   }
 
   const deleteNote = (id: string | number) => {
     const newNotes = notes.filter((note) => note.id !== id)
     setNotes(newNotes)
+    setItem('notes', newNotes)
   }
   const archiveNote = (id: string | number) => {
     const newNotes = notes.map((note) => {
@@ -32,6 +47,7 @@ const useNotes = () => {
       return note
     })
     setNotes(newNotes)
+    setItem('notes', newNotes)
   }
 
   return { notes, setNotes, searchNotes, addNote, deleteNote, archiveNote }

@@ -1,13 +1,17 @@
+import FloatingButton from '@/components/Atoms/FloatingButton'
 import AppBar from '@/components/Molecules/AppBar'
-import NotesItem from '@/components/Molecules/NotesItem'
 import NoteList from '@/components/Molecules/NotesList'
+import NotesModalForm from '@/components/Molecules/NotesModalForm'
 import Searchbar from '@/components/Molecules/Searchbar'
 import useNotes from '@/hooks/useNotes'
+import type { TypeNoteItem } from '@/types'
 import { getTheme } from '@/utils/helpers'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Home = () => {
-  const { notes, searchNotes, deleteNote, archiveNote } = useNotes()
+  const { notes, searchNotes, deleteNote, archiveNote, addNote } = useNotes()
+
+  const [modalShow, setModalShow] = useState(false)
 
   useEffect(() => {
     getTheme()
@@ -23,6 +27,26 @@ const Home = () => {
 
   const toggleArchiveNote = (id: string | number) => {
     archiveNote(id)
+  }
+
+  const handleAddNote = (values: { title: string; content: string }) => {
+    // console.log('add note')
+    console.log(values)
+    const newNote: TypeNoteItem = {
+      id: Date.now(),
+      title: values.title,
+      body: values.content,
+      archived: false,
+      createdAt: new Date().toISOString(),
+    }
+    addNote(newNote)
+    setTimeout(() => {
+      handleModalShow()
+    }, 400)
+  }
+
+  const handleModalShow = () => {
+    setModalShow(!modalShow)
   }
 
   return (
@@ -52,6 +76,12 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <FloatingButton onClick={handleModalShow} />
+      <NotesModalForm
+        isOpen={modalShow}
+        onClose={handleModalShow}
+        onSubmit={handleAddNote}
+      />
     </>
   )
 }
