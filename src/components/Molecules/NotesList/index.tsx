@@ -8,6 +8,13 @@ type TypeNoteList = {
 }
 
 const NoteList = ({ notes, onDelete, onArchive }: TypeNoteList) => {
+  if (notes.length === 0) {
+    return (
+      <div className="text-center text-gray-500 w-full text-2xl">
+        No notes found
+      </div>
+    )
+  }
   return notes.map((note) => (
     <NotesItem
       key={note.id}
