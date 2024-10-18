@@ -6,13 +6,15 @@ import FloatingButton from '../Atoms/FloatingButton'
 import NotesModalForm from '../Molecules/NotesModalForm'
 import type { TypeNoteItem } from '@/types'
 import { getTheme } from '@/utils/helpers'
+import { useParams } from 'react-router-dom'
 
 type TypeLayout = {
   children: React.ReactNode
-  onSubmit: (values: Pick<TypeNoteItem, 'title' | 'body'>) => void
+  onSubmit?: (values: Pick<TypeNoteItem, 'title' | 'body'>) => void
 }
 
 const Layout = ({ children, onSubmit }: TypeLayout) => {
+  const { id } = useParams()
   useEffect(() => {
     getTheme()
   }, [])
@@ -24,7 +26,8 @@ const Layout = ({ children, onSubmit }: TypeLayout) => {
   }
 
   function handleSubmit(values: Pick<TypeNoteItem, 'title' | 'body'>) {
-    onSubmit(values)
+    // biome-ignore lint/complexity/useOptionalChain: <explanation>
+    onSubmit && onSubmit(values)
     setTimeout(() => {
       handleModalShow()
     }, 400)
@@ -33,14 +36,18 @@ const Layout = ({ children, onSubmit }: TypeLayout) => {
   return (
     <>
       <AppBar />
-      <Searchbar />
+      {!id && <Searchbar />}
       <div className="notes-app__body container  py-5">{children}</div>
-      <FloatingButton onClick={handleModalShow} />
-      <NotesModalForm
-        isOpen={isModalShow}
-        onClose={handleModalShow}
-        onSubmit={handleSubmit}
-      />
+      {!id && (
+        <>
+          <FloatingButton onClick={handleModalShow} />
+          <NotesModalForm
+            isOpen={isModalShow}
+            onClose={handleModalShow}
+            onSubmit={handleSubmit}
+          />
+        </>
+      )}
     </>
   )
 }

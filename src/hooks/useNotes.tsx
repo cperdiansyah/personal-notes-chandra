@@ -1,6 +1,6 @@
 import type { TypeNoteItem, TypeNotes } from '@/types'
 import { getInitialData, getItem, setItem } from '@/utils'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useNotes = () => {
   const [notes, setNotes] = useState<TypeNotes>([])
@@ -50,7 +50,24 @@ const useNotes = () => {
     setItem('notes', newNotes)
   }
 
-  return { notes, setNotes, searchNotes, addNote, deleteNote, archiveNote }
+  const getNoteById = (id: string | number): TypeNoteItem | undefined => {
+    const notesLocalStorage = getItem('notes') as TypeNotes
+
+    const note = notesLocalStorage.find(
+      (note) => Number(note.id) === Number(id),
+    )
+    return note
+  }
+
+  return {
+    notes,
+    setNotes,
+    searchNotes,
+    addNote,
+    deleteNote,
+    archiveNote,
+    getNoteById,
+  }
 }
 
 export default useNotes

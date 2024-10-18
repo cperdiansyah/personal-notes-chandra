@@ -7,6 +7,7 @@ import Archive from '@/components/Pages/Archive'
 import NotFound from '@/components/Pages/NotFound'
 
 import '@/styles/tailwind.css'
+import NoteDetail from '@/components/Pages/Note/[id]'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: '/archive',
     element: <Archive />,
+  },
+  {
+    path: '/note/:id',
+    element: <NoteDetail />,
   },
 ])
 
