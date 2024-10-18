@@ -6,9 +6,9 @@ const useNotes = () => {
   const [notes, setNotes] = useState<TypeNotes>([])
 
   useEffect(() => {
-    const notesLocalStorage = getItem('notes')
+    const notesLocalStorage = getItem('notes') as TypeNotes
 
-    if (notesLocalStorage !== null) {
+    if (notesLocalStorage !== null && notesLocalStorage?.length > 0) {
       setNotes(notesLocalStorage as TypeNotes)
     } else {
       setItem('notes', getInitialData())
