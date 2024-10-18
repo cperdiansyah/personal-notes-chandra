@@ -2,17 +2,12 @@ import NoteList from '@/components/Molecules/NotesList'
 import Layout from '@/components/Pages/layout'
 import useNotes from '@/hooks/useNotes'
 import type { TypeNoteItem } from '@/types'
-import { getTheme } from '@/utils/helpers'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 const Home = () => {
   const [searchParams] = useSearchParams()
   const { notes, deleteNote, archiveNote, addNote, searchNotes } = useNotes()
-
-  useEffect(() => {
-    getTheme()
-  }, [])
 
   useEffect(() => {
     handleSearchNotes(searchParams.get('search') || '')

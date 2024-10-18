@@ -4,10 +4,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import Home from '@/components/Pages/Home'
 import Archive from '@/components/Pages/Archive'
+import NotFound from '@/components/Pages/NotFound'
 
 import '@/styles/tailwind.css'
 
 const router = createBrowserRouter([
+  {
+    path: '*',
+    element: <NotFound />,
+  },
   {
     path: '/',
     element: <Home />,
@@ -17,6 +22,7 @@ const router = createBrowserRouter([
     element: <Archive />,
   },
 ])
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RouterProvider router={router} />

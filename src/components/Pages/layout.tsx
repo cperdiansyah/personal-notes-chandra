@@ -1,10 +1,11 @@
 import type React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AppBar from '../Molecules/AppBar'
 import Searchbar from '../Molecules/Searchbar'
 import FloatingButton from '../Atoms/FloatingButton'
 import NotesModalForm from '../Molecules/NotesModalForm'
 import type { TypeNoteItem } from '@/types'
+import { getTheme } from '@/utils/helpers'
 
 type TypeLayout = {
   children: React.ReactNode
@@ -12,6 +13,10 @@ type TypeLayout = {
 }
 
 const Layout = ({ children, onSubmit }: TypeLayout) => {
+  useEffect(() => {
+    getTheme()
+  }, [])
+
   const [isModalShow, setIsModalShow] = useState(false)
 
   function handleModalShow() {

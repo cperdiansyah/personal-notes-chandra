@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/node": "^22.7.5",
     "formik": "^2.4.6",
     "lodash": "^4.17.21",
