@@ -1,5 +1,6 @@
 import Button from '@/components/Atoms/Button'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import PropTypes from 'prop-types'
 
 type TypeAddNoteForm = {
   onSubmit: (values: { title: string; body: string }) => void
@@ -64,6 +65,10 @@ const AddNoteForm = ({ onSubmit }: TypeAddNoteForm) => {
       )}
     </Formik>
   )
+}
+
+AddNoteForm.propTypes = {
+  onSubmit: PropTypes.func,
 }
 
 export default AddNoteForm
