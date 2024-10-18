@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import debounce from 'lodash/debounce'
 import { useSearchParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 interface ISearchbarProps {
   className?: string
@@ -48,6 +49,12 @@ const Searchbar = (props: ISearchbarProps) => {
       />
     </div>
   )
+}
+
+Searchbar.propTypes = {
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
 }
 
 export default Searchbar

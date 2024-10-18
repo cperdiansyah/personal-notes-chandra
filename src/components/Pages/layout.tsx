@@ -7,6 +7,7 @@ import NotesModalForm from '../Molecules/NotesModalForm'
 import type { TypeNoteItem } from '@/types'
 import { getTheme } from '@/utils/helpers'
 import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 type TypeLayout = {
   children: React.ReactNode
@@ -50,6 +51,11 @@ const Layout = ({ children, onSubmit }: TypeLayout) => {
       )}
     </>
   )
+}
+
+Layout.propTypes = {
+  children: PropTypes.node,
+  onSubmit: PropTypes.func,
 }
 
 export default Layout

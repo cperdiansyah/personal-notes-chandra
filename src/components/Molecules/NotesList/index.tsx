@@ -1,5 +1,6 @@
 import NotesItem from '@/components/Molecules/NotesItem'
 import type { TypeNotes } from '@/types'
+import PropTypes from 'prop-types'
 
 type TypeNoteList = {
   notes: TypeNotes
@@ -27,6 +28,12 @@ const NoteList = ({ notes, onDelete, onArchive }: TypeNoteList) => {
       ))}
     </div>
   )
+}
+
+NoteList.propTypes = {
+  notes: PropTypes.array,
+  onDelete: PropTypes.func,
+  onArchive: PropTypes.func,
 }
 
 export default NoteList
