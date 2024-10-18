@@ -2,20 +2,20 @@ import Button from '@/components/Atoms/Button'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 type TypeAddNoteForm = {
-  onSubmit: (values: { title: string; content: string }) => void
+  onSubmit: (values: { title: string; body: string }) => void
 }
 
 const AddNoteForm = ({ onSubmit }: TypeAddNoteForm) => {
   return (
     <Formik
-      initialValues={{ title: '', content: '' }}
+      initialValues={{ title: '', body: '' }}
       validate={(values) => {
-        const errors: { title?: string; content?: string } = {}
+        const errors: { title?: string; body?: string } = {}
         if (!values.title) {
           errors.title = 'Required'
         }
-        if (!values.content) {
-          errors.content = 'Required'
+        if (!values.body) {
+          errors.body = 'Required'
         }
         return errors
       }}
@@ -47,7 +47,7 @@ const AddNoteForm = ({ onSubmit }: TypeAddNoteForm) => {
             <label htmlFor="content">Content</label>
             <Field
               as="textarea"
-              name="content"
+              name="body"
               className=" w-full rounded-sm px-4 py-2 border border-gray-300 text-gray-700"
               placeholder="Masukkan isi catatan"
             />

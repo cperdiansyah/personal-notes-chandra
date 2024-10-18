@@ -1,10 +1,13 @@
-import AddNoteForm from '@/components/Molecules/AddNoteForm'
 import { useEffect, useRef } from 'react'
+import AddNoteForm from '@/components/Molecules/AddNoteForm'
+import Modal from 'react-responsive-modal'
+import "react-responsive-modal/styles.css";
+import type { TypeNoteItem } from '@/types';
 
 type TypeNotesModalForm = {
   isOpen: boolean
-  onClose?: () => void
-  onSubmit: (values: { title: string; content: string }) => void
+  onClose: () => void
+  onSubmit: (values: Pick<TypeNoteItem, 'title' | 'body'>) => void
 }
 const NotesModalForm = ({ isOpen, onClose, onSubmit }: TypeNotesModalForm) => {
   const modalRef = useRef<HTMLDivElement>(null)
@@ -27,13 +30,10 @@ const NotesModalForm = ({ isOpen, onClose, onSubmit }: TypeNotesModalForm) => {
   }, [isOpen])
 
   return (
-    <div
-      ref={modalRef}
-      className={`${isOpen ? 'block' : 'hidden'} fixed inset-0 bg-slate-500  flex justify-center items-center max-w-lg m-auto max-h-fit py-10 px-5 rounded-md`}
-    >
+    <Modal open={isOpen} onClose={onClose} center classNames={{ modal: 'w-full max-w-lg !bg-slate-500 !rounded-md' }}>
       <AddNoteForm onSubmit={onSubmit} />
-    </div>
-  )
+    </Modal>)
+
 }
 
 export default NotesModalForm

@@ -5,7 +5,7 @@ import type { TypeNoteItem } from '@/types'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-const Home = () => {
+const Archive = () => {
   const [searchParams] = useSearchParams()
   const { notes, deleteNote, archiveNote, addNote, searchNotes } = useNotes()
 
@@ -22,7 +22,7 @@ const Home = () => {
       id: Date.now(),
       title: values.title,
       body: values.content,
-      archived: false,
+      archived: true,
       createdAt: new Date().toISOString(),
     }
     addNote(newNote)
@@ -36,10 +36,10 @@ const Home = () => {
     >
       <div className="notes-app_note-list-wrapper">
         <h2 className="text-2xl font-bold w-full text-center mb-4">
-          Active Notes
+          Archive Notes
         </h2>
         <NoteList
-          notes={notes.filter((note) => !note.archived)}
+          notes={notes.filter((note) => note.archived)}
           onDelete={deleteNote}
           onArchive={archiveNote}
         />
@@ -48,4 +48,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Archive
