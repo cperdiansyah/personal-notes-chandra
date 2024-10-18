@@ -1,3 +1,10 @@
+import type {
+  LoginCredentials,
+  Note,
+  RegisterCredentials,
+  UserResponse,
+} from '@/utils/network-type'
+
 const BASE_URL = 'https://notes-api.dicoding.dev/v1'
 
 function getAccessToken(): string | null {
@@ -22,15 +29,10 @@ async function fetchWithToken(
   })
 }
 
-interface LoginCredentials {
-  email: string
-  password: string
-}
-
-async function login({
+async function login<T>({
   email,
   password,
-}: LoginCredentials): Promise<{ error: boolean; data: unknown }> {
+}: LoginCredentials): Promise<{ error: boolean; data: T | null }> {
   const response = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: {
@@ -49,17 +51,11 @@ async function login({
   return { error: false, data: responseJson.data }
 }
 
-interface RegisterCredentials {
-  name: string
-  email: string
-  password: string
-}
-
-async function register({
+async function register<T>({
   name,
   email,
   password,
-}: RegisterCredentials): Promise<{ error: boolean }> {
+}: RegisterCredentials): Promise<{ error: boolean; data: T | null }> {
   const response = await fetch(`${BASE_URL}/register`, {
     method: 'POST',
     headers: {
@@ -72,15 +68,10 @@ async function register({
 
   if (responseJson.status !== 'success') {
     alert(responseJson.message)
-    return { error: true }
+    return { error: true, data: null }
   }
 
-  return { error: false }
-}
-
-interface UserResponse {
-  error: boolean
-  data: unknown
+  return { error: false, data: null }
 }
 
 async function getUserLogged(): Promise<UserResponse> {
@@ -94,15 +85,10 @@ async function getUserLogged(): Promise<UserResponse> {
   return { error: false, data: responseJson.data }
 }
 
-interface Note {
-  title: string
-  body: string
-}
-
-async function addNote({
+async function addNote<T>({
   title,
   body,
-}: Note): Promise<{ error: boolean; data: unknown }> {
+}: Note): Promise<{ error: boolean; data: T | null }> {
   const response = await fetchWithToken(`${BASE_URL}/notes`, {
     method: 'POST',
     headers: {
@@ -120,7 +106,10 @@ async function addNote({
   return { error: false, data: responseJson.data }
 }
 
-async function getActiveNotes(): Promise<{ error: boolean; data: unknown }> {
+async function getActiveNotes<T>(): Promise<{
+  error: boolean
+  data: T | null
+}> {
   const response = await fetchWithToken(`${BASE_URL}/notes`)
   const responseJson = await response.json()
 
@@ -131,7 +120,10 @@ async function getActiveNotes(): Promise<{ error: boolean; data: unknown }> {
   return { error: false, data: responseJson.data }
 }
 
-async function getArchivedNotes(): Promise<{ error: boolean; data: unknown }> {
+async function getArchivedNotes<T>(): Promise<{
+  error: boolean
+  data: T | null
+}> {
   const response = await fetchWithToken(`${BASE_URL}/notes/archived`)
   const responseJson = await response.json()
 
@@ -142,7 +134,9 @@ async function getArchivedNotes(): Promise<{ error: boolean; data: unknown }> {
   return { error: false, data: responseJson.data }
 }
 
-async function getNote(id: string): Promise<{ error: boolean; data: unknown }> {
+async function getNote<T>(
+  id: string,
+): Promise<{ error: boolean; data: T | null }> {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}`)
   const responseJson = await response.json()
 
