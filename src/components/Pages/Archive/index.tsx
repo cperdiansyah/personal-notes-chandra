@@ -9,8 +9,6 @@ const Archive = () => {
   const [searchParams] = useSearchParams()
   const { notes, deleteNote, archiveNote, addNote, searchNotes } = useNotes()
 
-  
-
   useEffect(() => {
     handleSearchNotes(searchParams.get('search') || '')
   }, [searchParams.get('search')])
@@ -40,13 +38,11 @@ const Archive = () => {
         <h2 className="text-2xl font-bold w-full text-center mb-4">
           Archive Notes
         </h2>
-        <div className="notes-list grid grid-cols-3 gap-4">
-          <NoteList
-            notes={notes.filter((note) => note.archived)}
-            onDelete={deleteNote}
-            onArchive={archiveNote}
-          />
-        </div>
+        <NoteList
+          notes={notes.filter((note) => note.archived)}
+          onDelete={deleteNote}
+          onArchive={archiveNote}
+        />
       </div>
     </Layout>
   )

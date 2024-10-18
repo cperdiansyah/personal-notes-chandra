@@ -15,14 +15,18 @@ const NoteList = ({ notes, onDelete, onArchive }: TypeNoteList) => {
       </div>
     )
   }
-  return notes.map((note) => (
-    <NotesItem
-      key={note.id}
-      {...note}
-      onArchive={onArchive}
-      onDelete={onDelete}
-    />
-  ))
+  return (
+    <div className="notes-list grid grid-cols-3 gap-4">
+      {notes.map((note) => (
+        <NotesItem
+          key={note.id}
+          {...note}
+          onArchive={onArchive}
+          onDelete={onDelete}
+        />
+      ))}
+    </div>
+  )
 }
 
 export default NoteList

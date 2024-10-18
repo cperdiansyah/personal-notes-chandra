@@ -38,13 +38,11 @@ const Home = () => {
         <h2 className="text-2xl font-bold w-full text-center mb-4">
           Active Notes
         </h2>
-        <div className="notes-list grid grid-cols-3 gap-4">
-          <NoteList
-            notes={notes.filter((note) => !note.archived)}
-            onDelete={deleteNote}
-            onArchive={archiveNote}
-          />
-        </div>
+        <NoteList
+          notes={notes.filter((note) => !note.archived)}
+          onDelete={deleteNote}
+          onArchive={archiveNote}
+        />
       </div>
     </Layout>
   )
