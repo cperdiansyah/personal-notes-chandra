@@ -1,13 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import Home from '@/components/Pages/Home'
 import Archive from '@/components/Pages/Archive'
+import Home from '@/components/Pages/Home'
 import NotFound from '@/components/Pages/NotFound'
 
-import '@/styles/tailwind.css'
+import Login from '@/components/Pages/Auth/Login'
+import Register from '@/components/Pages/Auth/Register'
 import NoteDetail from '@/components/Pages/Note/[id]'
+import { ThemeProvider } from '@/context/theme-context'
+import '@/styles/tailwind.css'
 
 const router = createBrowserRouter([
   {
@@ -26,10 +29,20 @@ const router = createBrowserRouter([
     path: '/note/:id',
     element: <NoteDetail />,
   },
+  {
+    path: '/auth/login',
+    element: <Login />,
+  },
+  {
+    path: '/auth/register',
+    element: <Register />,
+  },
 ])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>,
 )
