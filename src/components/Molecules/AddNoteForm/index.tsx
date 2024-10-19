@@ -18,6 +18,9 @@ const AddNoteForm = ({ onSubmit }: TypeAddNoteForm) => {
         if (!values.body) {
           errors.body = 'Required'
         }
+        if (values.title.length > 50) {
+          errors.title = 'Title must be less than 50 characters'
+        }
         return errors
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -40,7 +43,6 @@ const AddNoteForm = ({ onSubmit }: TypeAddNoteForm) => {
               name="title"
               className="w-full rounded-sm px-4 py-2 border border-gray-300 text-gray-700"
               placeholder="Masukkan judul"
-              maxLength={50}
             />
             <ErrorMessage name="title" component="div" />
           </div>
