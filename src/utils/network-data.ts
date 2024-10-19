@@ -208,4 +208,5 @@ export {
   archiveNote,
   unarchiveNote,
   deleteNote,
+  fetchWithToken,
 }
